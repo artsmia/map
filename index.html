@@ -2,14 +2,40 @@
 <head>
 <title>MIA floorplan</title>
 <style>
-img { border: 1px solid rgba(12, 47, 12, 0.9); }
+img, #markers { position: absolute; top: 0; left: 0; }
+#markers img { z-index: 2; }
+#marker-stroked { display: none; }
+#lines {
+  display: block;
+  border: 1px solid rgba(13, 31, 13, 0.5);
+  border-width: 0 1px 1px;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  $marker = document.getElementById('markers');
+  $floorplan = document.getElementById('floorplan');
+  $lines = document.getElementById('lines');
+  $floorplan.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    console.log(e);
+    var dx = 11, dy = 20;
+    $marker.style.top = e.pageY - dy;
+    $marker.style.left = e.pageX - dx;
+  });
+})
+</script>
 </head>
 <body>
-<img src="./marker-24.svg">
-<img src="./marker-stroked-24.svg">
-<hr>
-
-<img src="./floorplan.svg">
+<div id="markers">
+  <img draggable="true" id="marker" src="./marker-24.svg">
+  <img draggable="true" id="marker-stroked" src="./marker-stroked-24.svg">
+</div>
+<img id="floorplan" src="./floorplan.svg">
+<div id="lines">
 </body>
 
