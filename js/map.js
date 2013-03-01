@@ -21,7 +21,7 @@ Marker = {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  $marker = document.getElementById('markers');
+  $marker = document.getElementById('marker');
   $floorplan = document.getElementById('floorplan');
   $lines = document.getElementById('lines');
   $floorplan.addEventListener('mousedown', function(e) {
