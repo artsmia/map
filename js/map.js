@@ -2,13 +2,24 @@ Marker = {
   dx: 11, dy: 20,
 
   move: function(x, y) {
-    $marker.style.left = x - this.dx;
-    $marker.style.top  = y - this.dy;
+    this.x = $marker.style.left = x - this.dx;
+    this.y = $marker.style.top  = y - this.dy;
     this.updateState(x, y);
+    this.updateForm();
   },
 
   updateState: function(x, y) {
     history.pushState(null, null, '?x=' + x + '&y=' + y)
+  },
+
+  updateForm: function() {
+    $id.value = "";
+    $id.hidden = false;
+  },
+
+  save: function() {
+    $id.hidden = '1'
+    console.log($id.value, this.x, this.y);
   },
 
   init: function() {
@@ -29,6 +40,13 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(e);
     Marker.move(e.pageX, e.pageY)
   });
+
+  $form = document.querySelector('form')
+  $id = document.querySelector('input')
+  $form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    Marker.save();
+  })
 
   Marker.init()
   window.addEventListener("popstate", function(e) { Marker.init() })
