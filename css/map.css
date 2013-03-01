@@ -1,4 +1,4 @@
-img, #marker { position: absolute; top: 0; left: 0; }
+#marker { position: absolute; top: 0; left: 0; }
 
 #marker {
   z-index: 2;
