@@ -19,8 +19,13 @@ Marker = {
 
   save: function() {
     $id.hidden = '1'
-    console.log($id.value, this.x, this.y);
+    id = $id.value;
+    console.log(id, this.x, this.y);
+    localStorage.setItem(id, JSON.stringify(this.point()));
+    this.mark(this.x, this.y);
   },
+
+  point: function() { return [this.x, this.y]; },
 
   init: function() {
     m = window.location.search.match(/x=(\d+)&y=(\d+)/);
@@ -28,6 +33,25 @@ Marker = {
       var x = m[1], y = m[2];
       this.move(x, y);
     }
+    this.populate();
+  },
+
+  populate: function() {
+    ids = Object.getOwnPropertyNames(localStorage);
+    ids.forEach(function(id) {
+      var info = JSON.parse(localStorage[id]),
+          x = info[0],
+          y = info[1];
+      Marker.mark(x, y);
+    });
+  },
+
+  mark: function(x, y) {
+    m = document.createElement('span');
+    m.classList.add('marker');
+    m.style.left = x;
+    m.style.top = y;
+    $floorplan.appendChild(m);
   }
 }
 
