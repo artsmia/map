@@ -1,9 +1,18 @@
 Marker = {
   dx: 11, dy: 20,
 
-  move: function(x, y) {
+  _move: function(e) {
+    this.move(e.pageX - this.target.offsetLeft, e.pageY - this.target.offsetTop);
+  },
+
+  move: function(clickpoint) {
+    console.log(clickpoint.target);
+    window.target = target;
+    this.floor = this.target.id;
+
     this.x = $marker.style.left = x - this.dx;
     this.y = $marker.style.top  = y - this.dy;
+    console.log(this.x, this.y);
     this.updateState(x, y);
     this.updateForm();
   },
@@ -20,9 +29,16 @@ Marker = {
   save: function() {
     $id.hidden = '1'
     id = $id.value;
-    console.log(id, this.x, this.y);
-    localStorage.setItem(id, JSON.stringify(this.point()));
+    this.store(this.floor, id);
     this.mark(this.x, this.y);
+  },
+
+  store: function(floor_id, id) {
+    var floor = localStorage[floor_id];
+    if(floor == undefined) floor = '{}';
+    floor = JSON.parse(floor);
+    floor[id] = JSON.stringify(this.point());
+    localStorage[floor_id] = JSON.stringify(floor);
   },
 
   point: function() { return [this.x, this.y]; },
@@ -31,19 +47,22 @@ Marker = {
     m = window.location.search.match(/x=(\d+)&y=(\d+)/);
     if(m) {
       var x = m[1], y = m[2];
-      this.move(x, y);
+      this.mark(x, y); // TODO: how do I know which floor?
     }
     this.populate();
   },
 
   populate: function() {
     ids = Object.getOwnPropertyNames(localStorage);
-    ids.forEach(function(id) {
-      var info = JSON.parse(localStorage[id]),
-          x = info[0],
-          y = info[1];
-      Marker.mark(x, y);
-    });
+    [1, 2, 3].forEach(function(floor) {
+      target = document.getElementById(floor)
+      ids.forEach(function(id) {
+        var info = JSON.parse(localStorage[id]),
+            x = info[0],
+            y = info[1];
+        Marker.mark(x, y, target);
+      });
+    })
   },
 
   mark: function(x, y) {
@@ -61,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
   $lines = document.getElementById('lines');
   $floorplan.addEventListener('mousedown', function(e) {
     e.preventDefault();
-    console.log(e);
-    Marker.move(e.pageX, e.pageY)
+    Marker.move(e.pageX, e.pageY, target)
   });
 
   $form = document.querySelector('form')
