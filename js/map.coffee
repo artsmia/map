@@ -8,7 +8,7 @@ Map =
 
   mark: ->
     if gallery = window.location.search.match(/g=(\d+)/)
-      Markers.add(gallery[1])
+      Markers.add(gallery[1]).scrollIntoViewIfNeeded()
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 

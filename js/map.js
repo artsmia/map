@@ -21,7 +21,7 @@ Map = {
   mark: function() {
     var gallery, mark, _i, _len, _ref, _results;
     if (gallery = window.location.search.match(/g=(\d+)/)) {
-      return Markers.add(gallery[1]);
+      return Markers.add(gallery[1]).scrollIntoViewIfNeeded();
     } else {
       _ref = Object.keys(Markers.all);
       _results = [];
