@@ -8,7 +8,7 @@ body { margin: 0; }
   height: 24px;
   background: url(../svgs/marker-24.svg);
 }
-#marker.stroked, .marker {
+#marker.stroked, .marker.stroked {
   background: url(../svgs/marker-stroked-24.svg);
 }
 

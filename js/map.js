@@ -27,7 +27,7 @@ Map = {
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         mark = _ref[_i];
-        _results.push(Markers.add(mark));
+        _results.push(Markers.add(mark, true));
       }
       return _results;
     }
@@ -35,19 +35,28 @@ Map = {
 };
 
 Markers = {
-  build: function(x, y) {
+  build: function(x, y, stroked) {
     var m;
+    if (stroked == null) {
+      stroked = false;
+    }
     m = document.createElement('span');
     m.classList.add('marker');
+    if (stroked) {
+      m.classList.add('stroked');
+    }
     m.style.left = x;
     m.style.top = y;
     return m;
   },
-  add: function(id) {
+  add: function(id, stroked) {
     var floor, x, y, _ref;
+    if (stroked == null) {
+      stroked = false;
+    }
     _ref = Markers.all[id], x = _ref[0], y = _ref[1];
     floor = document.getElementById(id[0]);
-    return floor.appendChild(this.build(x, y));
+    return floor.appendChild(this.build(x, y, stroked));
   }
 };
 
