@@ -12,16 +12,4 @@ body { margin: 0; }
   background: url(../svgs/marker-stroked-24.svg);
 }
 
-#lines {
-  display: block;
-  border: 1px solid rgba(13, 31, 13, 0.5);
-  border-width: 0 1px 1px;
-  z-index: 3;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-form {
-  margin-left: 24px;
-}
+#floorplan div { position: relative; }
