@@ -1,10 +1,12 @@
+xhr = (url, f) ->
+  x = new XMLHttpRequest; x.open('get', url); x.send()
+  x.onreadystatechange = -> f(x) if x.readyState == 4
+
 Map =
   init: (url='galleries.json') ->
-    x = new XMLHttpRequest; x.open('get', url); x.send()
-    x.onreadystatechange = ->
-      if x.readyState == 4
-        Markers.all = JSON.parse(x.responseText)
-        Map.mark()
+    xhr url, (x) ->
+      Markers.all = JSON.parse(x.responseText)
+      Map.mark()
 
   mark: ->
     if gallery = window.location.hash.match(/(\d+)/)
