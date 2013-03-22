@@ -7,7 +7,8 @@ Map =
         Map.mark()
 
   mark: ->
-    if gallery = window.location.search.match(/g=(\d+)/)
+    if gallery = window.location.hash.match(/(\d+)/)
+      Markers.clear()
       Markers.add(gallery[1]).scrollIntoViewIfNeeded()
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
@@ -26,4 +27,7 @@ Markers =
     floor = document.getElementById(id[0])
     floor.appendChild @build(x, y, stroked)
 
+  clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
+
 Map.init()
+window.addEventListener "hashchange", Map.mark, false

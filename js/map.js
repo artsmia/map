@@ -20,7 +20,8 @@ Map = {
   },
   mark: function() {
     var gallery, mark, _i, _len, _ref, _results;
-    if (gallery = window.location.search.match(/g=(\d+)/)) {
+    if (gallery = window.location.hash.match(/(\d+)/)) {
+      Markers.clear();
       return Markers.add(gallery[1]).scrollIntoViewIfNeeded();
     } else {
       _ref = Object.keys(Markers.all);
@@ -57,7 +58,17 @@ Markers = {
     _ref = Markers.all[id], x = _ref[0], y = _ref[1];
     floor = document.getElementById(id[0]);
     return floor.appendChild(this.build(x, y, stroked));
+  },
+  clear: function() {
+    var d, _results;
+    _results = [];
+    while (d = document.querySelector('.marker')) {
+      _results.push(d.parentNode.removeChild(d));
+    }
+    return _results;
   }
 };
 
 Map.init();
+
+window.addEventListener("hashchange", Map.mark, false);
