@@ -13,3 +13,14 @@ body { margin: 0; }
 }
 
 #floorplan div { position: relative; }
+
+.marker:not(.stroked):before {
+  display: block;
+  width: 50px;
+  height: 50px;
+  content: " ";
+  margin: -2em;
+  padding: 1.2em;
+  border-radius: 55px;
+  box-shadow: 0 0 0 1000em rgba(15, 15, 15, 0.3);
+}
