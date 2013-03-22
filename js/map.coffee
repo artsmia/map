@@ -15,6 +15,12 @@ Map =
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
+  svgify: ->
+    swap_floor = (floor, x) -> document.getElementById(floor).innerHTML = x.responseText; Map.init()
+    xhr "/svgs/3.svg", (x) -> swap_floor(3, x)
+    xhr "/svgs/2.svg", (x) -> swap_floor(2, x)
+    xhr "/svgs/1.svg", (x) -> swap_floor(1, x)
+
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
@@ -32,4 +38,5 @@ Markers =
   clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
 
 Map.init()
+Map.svgify()
 window.addEventListener "hashchange", Map.mark, false

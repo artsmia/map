@@ -38,6 +38,22 @@ Map = {
       }
       return _results;
     }
+  },
+  svgify: function() {
+    var swap_floor;
+    swap_floor = function(floor, x) {
+      document.getElementById(floor).innerHTML = x.responseText;
+      return Map.init();
+    };
+    xhr("/svgs/3.svg", function(x) {
+      return swap_floor(3, x);
+    });
+    xhr("/svgs/2.svg", function(x) {
+      return swap_floor(2, x);
+    });
+    return xhr("/svgs/1.svg", function(x) {
+      return swap_floor(1, x);
+    });
   }
 };
 
@@ -76,5 +92,7 @@ Markers = {
 };
 
 Map.init();
+
+Map.svgify();
 
 window.addEventListener("hashchange", Map.mark, false);
