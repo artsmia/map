@@ -96,3 +96,10 @@ Map.init();
 Map.svgify();
 
 window.addEventListener("hashchange", Map.mark, false);
+
+document.addEventListener('click', function(e) {
+  var id, _ref;
+  if (t.tagName === 'tspan' && (id = (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0)) {
+    return window.location.hash = "" + id;
+  }
+});

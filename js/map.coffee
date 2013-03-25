@@ -40,3 +40,7 @@ Markers =
 Map.init()
 Map.svgify()
 window.addEventListener "hashchange", Map.mark, false
+
+document.addEventListener 'click', (e) ->
+  if t.tagName == 'tspan' && id = t.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
+    window.location.hash = "#{id}"
