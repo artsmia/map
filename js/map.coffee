@@ -32,8 +32,7 @@ Markers =
 
   add: (id, stroked=false) ->
     [x, y] = Markers.all[id]
-    floor = document.getElementById(id[0])
-    floor.appendChild @build(x, y, stroked)
+    document.getElementById(id[0])?.appendChild @build(x, y, stroked)
 
   clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
 

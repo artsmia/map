@@ -73,13 +73,12 @@ Markers = {
     return m;
   },
   add: function(id, stroked) {
-    var floor, x, y, _ref;
+    var x, y, _ref, _ref1;
     if (stroked == null) {
       stroked = false;
     }
     _ref = Markers.all[id], x = _ref[0], y = _ref[1];
-    floor = document.getElementById(id[0]);
-    return floor.appendChild(this.build(x, y, stroked));
+    return (_ref1 = document.getElementById(id[0])) != null ? _ref1.appendChild(this.build(x, y, stroked)) : void 0;
   },
   clear: function() {
     var d, _results;
