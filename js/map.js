@@ -26,7 +26,7 @@ Map = {
   },
   mark: function() {
     var gallery, mark, _i, _len, _ref, _results;
-    if (gallery = window.location.hash.match(/(\d+)/)) {
+    if (gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)) {
       Markers.clear();
       return Markers.add(gallery[1]).scrollIntoViewIfNeeded();
     } else {
@@ -39,19 +39,26 @@ Map = {
       return _results;
     }
   },
-  svgify: function() {
+  svgify: function(url_prefix) {
     var swap_floor;
+    if (url_prefix == null) {
+      url_prefix = "";
+    }
     swap_floor = function(floor, x) {
-      document.getElementById(floor).innerHTML = x.responseText;
+      var _ref;
+      if ((_ref = document.getElementById(floor)) != null) {
+        _ref.innerHTML = x.responseText;
+      }
       return Map.init();
     };
-    xhr("svgs/3.svg", function(x) {
+    url_prefix = url_prefix + "svgs/";
+    xhr("" + url_prefix + "3.svg", function(x) {
       return swap_floor(3, x);
     });
-    xhr("svgs/2.svg", function(x) {
+    xhr("" + url_prefix + "2.svg", function(x) {
       return swap_floor(2, x);
     });
-    return xhr("svgs/1.svg", function(x) {
+    return xhr("" + url_prefix + "1.svg", function(x) {
       return swap_floor(1, x);
     });
   }
@@ -68,8 +75,8 @@ Markers = {
     if (stroked) {
       m.classList.add('stroked');
     }
-    m.style.left = x;
-    m.style.top = y;
+    m.style.left = "" + x + "px";
+    m.style.top = "" + y + "px";
     return m;
   },
   add: function(id, stroked) {
@@ -77,6 +84,7 @@ Markers = {
     if (stroked == null) {
       stroked = false;
     }
+    id = "" + id;
     _ref = Markers.all[id], x = _ref[0], y = _ref[1];
     return (_ref1 = document.getElementById(id[0])) != null ? _ref1.appendChild(this.build(x, y, stroked)) : void 0;
   },
@@ -96,6 +104,10 @@ Map.svgify();
 
 window.addEventListener("hashchange", Map.mark, false);
 
+Map.clickCallback = function() {
+  return window.location.hash = "" + id;
+};
+
 document.addEventListener('click', function(e) {
   var id, t, _ref;
   t = e.target;
@@ -107,7 +119,6 @@ document.addEventListener('click', function(e) {
     t = null;
   }
   if (id = t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0 : void 0) {
-    console.log(t, t.textContent, id);
-    return window.location.hash = "" + id;
+    return Map.clickCallback(id);
   }
 });

@@ -9,28 +9,30 @@ Map =
       Map.mark()
 
   mark: ->
-    if gallery = window.location.hash.match(/(\d+)/)
+    if gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)
       Markers.clear()
       Markers.add(gallery[1]).scrollIntoViewIfNeeded()
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
-  svgify: ->
-    swap_floor = (floor, x) -> document.getElementById(floor).innerHTML = x.responseText; Map.init()
-    xhr "svgs/3.svg", (x) -> swap_floor(3, x)
-    xhr "svgs/2.svg", (x) -> swap_floor(2, x)
-    xhr "svgs/1.svg", (x) -> swap_floor(1, x)
+  svgify: (url_prefix="") ->
+    swap_floor = (floor, x) -> document.getElementById(floor)?.innerHTML = x.responseText; Map.init()
+    url_prefix = url_prefix + "svgs/"
+    xhr "#{url_prefix}3.svg", (x) -> swap_floor(3, x)
+    xhr "#{url_prefix}2.svg", (x) -> swap_floor(2, x)
+    xhr "#{url_prefix}1.svg", (x) -> swap_floor(1, x)
 
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
     m.classList.add('marker')
     m.classList.add('stroked') if stroked
-    m.style.left = x
-    m.style.top = y
+    m.style.left = "#{x}px"
+    m.style.top = "#{y}px"
     m
 
   add: (id, stroked=false) ->
+    id = "#{id}"
     [x, y] = Markers.all[id]
     document.getElementById(id[0])?.appendChild @build(x, y, stroked)
 
@@ -39,6 +41,9 @@ Markers =
 Map.init()
 Map.svgify()
 window.addEventListener "hashchange", Map.mark, false
+
+Map.clickCallback = ->
+  window.location.hash = "#{id}"
 
 document.addEventListener 'click', (e) ->
   # Climb the dom until we find a `g > text`, that's probably the gallery id
@@ -50,5 +55,4 @@ document.addEventListener 'click', (e) ->
     t = null
 
   if id = t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
-    console.log t, t.textContent, id
-    window.location.hash = "#{id}"
+    Map.clickCallback(id)
