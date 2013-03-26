@@ -17,9 +17,9 @@ Map =
 
   svgify: ->
     swap_floor = (floor, x) -> document.getElementById(floor).innerHTML = x.responseText; Map.init()
-    xhr "/svgs/3.svg", (x) -> swap_floor(3, x)
-    xhr "/svgs/2.svg", (x) -> swap_floor(2, x)
-    xhr "/svgs/1.svg", (x) -> swap_floor(1, x)
+    xhr "svgs/3.svg", (x) -> swap_floor(3, x)
+    xhr "svgs/2.svg", (x) -> swap_floor(2, x)
+    xhr "svgs/1.svg", (x) -> swap_floor(1, x)
 
 Markers =
   build: (x, y, stroked=false) ->

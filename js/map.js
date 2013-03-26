@@ -45,13 +45,13 @@ Map = {
       document.getElementById(floor).innerHTML = x.responseText;
       return Map.init();
     };
-    xhr("/svgs/3.svg", function(x) {
+    xhr("svgs/3.svg", function(x) {
       return swap_floor(3, x);
     });
-    xhr("/svgs/2.svg", function(x) {
+    xhr("svgs/2.svg", function(x) {
       return swap_floor(2, x);
     });
-    return xhr("/svgs/1.svg", function(x) {
+    return xhr("svgs/1.svg", function(x) {
       return swap_floor(1, x);
     });
   }
