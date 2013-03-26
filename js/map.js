@@ -97,8 +97,17 @@ Map.svgify();
 window.addEventListener("hashchange", Map.mark, false);
 
 document.addEventListener('click', function(e) {
-  var id, _ref;
-  if (t.tagName === 'tspan' && (id = (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0)) {
+  var id, t, _ref;
+  t = e.target;
+  if (t.parentElement.nodeName === 'g') {
+    while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
+      t = t.parentElement.querySelector('text') || t.parentElement;
+    }
+  } else {
+    t = null;
+  }
+  if (id = t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0 : void 0) {
+    console.log(t, t.textContent, id);
     return window.location.hash = "" + id;
   }
 });
