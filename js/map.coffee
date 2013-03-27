@@ -22,6 +22,18 @@ Map =
     xhr "#{url_prefix}2.svg", (x) -> swap_floor(2, x)
     xhr "#{url_prefix}1.svg", (x) -> swap_floor(1, x)
 
+  # Climb the dom until we find a `g > text`, that's probably the gallery id
+  touched: (e) ->
+    t = e.target
+    if t.parentElement.nodeName == 'g'
+      until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
+        t = t.parentElement.querySelector('text') || t.parentElement
+    else
+      t = null
+
+    if id = t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
+      Map.clickCallback(id)
+
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
@@ -42,17 +54,8 @@ Map.init()
 Map.svgify()
 window.addEventListener "hashchange", Map.mark, false
 
-Map.clickCallback = ->
-  window.location.hash = "#{id}"
+Map.clickCallback = -> window.location.hash = "#{id}"
 
-document.addEventListener 'click', (e) ->
-  # Climb the dom until we find a `g > text`, that's probably the gallery id
-  t = e.target
-  if t.parentElement.nodeName == 'g'
-    until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
-      t = t.parentElement.querySelector('text') || t.parentElement
-  else
-    t = null
-
-  if id = t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
-    Map.clickCallback(id)
+$map = document.querySelector('#map') || document
+$map.addEventListener 'click', Map.touched
+$map.addEventListener 'touchend', Map.touched
