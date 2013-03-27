@@ -25,15 +25,15 @@ Map = {
     });
   },
   mark: function() {
-    var gallery, mark, _i, _len, _ref, _results;
+    var gallery, mark, _i, _len, _ref, _ref1, _results;
     if (gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)) {
       Markers.clear();
-      return Markers.add(gallery[1]).scrollIntoViewIfNeeded();
+      return (_ref = Markers.add(gallery[1])) != null ? typeof _ref.scrollIntoViewIfNeeded === "function" ? _ref.scrollIntoViewIfNeeded() : void 0 : void 0;
     } else {
-      _ref = Object.keys(Markers.all);
+      _ref1 = Object.keys(Markers.all);
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        mark = _ref[_i];
+      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+        mark = _ref1[_i];
         _results.push(Markers.add(mark, true));
       }
       return _results;
@@ -99,8 +99,10 @@ Markers = {
       stroked = false;
     }
     id = "" + id;
-    _ref = Markers.all[id], x = _ref[0], y = _ref[1];
-    return (_ref1 = document.getElementById(id[0])) != null ? _ref1.appendChild(this.build(x, y, stroked)) : void 0;
+    if (id && (Markers.all[id] != null)) {
+      _ref = Markers.all[id], x = _ref[0], y = _ref[1];
+      return (_ref1 = document.getElementById(id[0])) != null ? _ref1.appendChild(this.build(x, y, stroked)) : void 0;
+    }
   },
   clear: function() {
     var d, _results;
@@ -110,16 +112,6 @@ Markers = {
     }
     return _results;
   }
-};
-
-Map.init();
-
-Map.svgify();
-
-window.addEventListener("hashchange", Map.mark, false);
-
-Map.clickCallback = function() {
-  return window.location.hash = "" + id;
 };
 
 $map = document.querySelector('#map') || document;
