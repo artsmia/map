@@ -11,7 +11,7 @@ Map =
   mark: ->
     if gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)
       Markers.clear()
-      Markers.add(gallery[1]).scrollIntoViewIfNeeded()
+      Markers.add(gallery[1])?.scrollIntoViewIfNeeded?()
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
@@ -45,16 +45,17 @@ Markers =
 
   add: (id, stroked=false) ->
     id = "#{id}"
-    [x, y] = Markers.all[id]
-    document.getElementById(id[0])?.appendChild @build(x, y, stroked)
+    if id && Markers.all[id]?
+      [x, y] = Markers.all[id]
+      document.getElementById(id[0])?.appendChild @build(x, y, stroked)
 
   clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
 
-Map.init()
-Map.svgify()
-window.addEventListener "hashchange", Map.mark, false
+# Map.init()
+# Map.svgify()
+# window.addEventListener "hashchange", Map.mark, false
 
-Map.clickCallback = -> window.location.hash = "#{id}"
+# Map.clickCallback = -> window.location.hash = "#{id}"
 
 $map = document.querySelector('#map') || document
 $map.addEventListener 'click', Map.touched
