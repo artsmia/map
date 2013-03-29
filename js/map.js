@@ -75,6 +75,23 @@ Map = {
     if (id = t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0) {
       return Map.clickCallback(id);
     }
+  },
+  hover: function(e) {
+    var id, t, _ref, _ref1;
+    t = e.target;
+    if (((_ref = t.parentElement) != null ? _ref.nodeName : void 0) === 'g') {
+      while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
+        t = t.parentElement.querySelector('text') || t.parentElement;
+      }
+    } else {
+      t = null;
+    }
+    if (id = t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0) {
+      return Map.hoverCallback(id);
+    }
+  },
+  unhover: function() {
+	  return Map.unhoverCallback();
   }
 };
 
@@ -123,3 +140,6 @@ $map = document.querySelector('#map') || document;
 $map.addEventListener('click', Map.touched);
 
 $map.addEventListener('touchend', Map.touched);
+
+$map.addEventListener('mouseover', Map.hover);
+$map.addEventListener('mouseout', Map.unhover);
