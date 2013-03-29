@@ -25,7 +25,7 @@ Map =
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   touched: (e) ->
     t = e.target
-    if t.parentElement.nodeName == 'g'
+    if t.parentElement?.nodeName == 'g'
       until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
         t = t.parentElement.querySelector('text') || t.parentElement
     else
