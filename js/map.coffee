@@ -37,8 +37,11 @@ Map =
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
-    m.classList.add('marker')
-    m.classList.add('stroked') if stroked
+    if m.classList?
+      m.classList.add('marker')
+      m.classList.add('stroked') if stroked
+    else
+      m.setAttribute('class', 'marker') # IE<9 doesn't support classList
     m.style.left = "#{x}px"
     m.style.top = "#{y}px"
     m

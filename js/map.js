@@ -85,9 +85,13 @@ Markers = {
       stroked = false;
     }
     m = document.createElement('span');
-    m.classList.add('marker');
-    if (stroked) {
-      m.classList.add('stroked');
+    if (m.classList != null) {
+      m.classList.add('marker');
+      if (stroked) {
+        m.classList.add('stroked');
+      }
+    } else {
+      m.setAttribute('class', 'marker');
     }
     m.style.left = "" + x + "px";
     m.style.top = "" + y + "px";
