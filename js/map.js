@@ -63,16 +63,16 @@ Map = {
     });
   },
   touched: function(e) {
-    var id, t, _ref;
+    var id, t, _ref, _ref1;
     t = e.target;
-    if (t.parentElement.nodeName === 'g') {
+    if (((_ref = t.parentElement) != null ? _ref.nodeName : void 0) === 'g') {
       while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
         t = t.parentElement.querySelector('text') || t.parentElement;
       }
     } else {
       t = null;
     }
-    if (id = t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0 : void 0) {
+    if (id = t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0) {
       return Map.clickCallback(id);
     }
   }
@@ -85,9 +85,13 @@ Markers = {
       stroked = false;
     }
     m = document.createElement('span');
-    m.classList.add('marker');
-    if (stroked) {
-      m.classList.add('stroked');
+    if (m.classList != null) {
+      m.classList.add('marker');
+      if (stroked) {
+        m.classList.add('stroked');
+      }
+    } else {
+      m.setAttribute('class', 'marker');
     }
     m.style.left = "" + x + "px";
     m.style.top = "" + y + "px";

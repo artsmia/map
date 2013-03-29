@@ -25,7 +25,7 @@ Map =
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   touched: (e) ->
     t = e.target
-    if t.parentElement.nodeName == 'g'
+    if t.parentElement?.nodeName == 'g'
       until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
         t = t.parentElement.querySelector('text') || t.parentElement
     else
@@ -37,8 +37,11 @@ Map =
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
-    m.classList.add('marker')
-    m.classList.add('stroked') if stroked
+    if m.classList?
+      m.classList.add('marker')
+      m.classList.add('stroked') if stroked
+    else
+      m.setAttribute('class', 'marker') # IE<9 doesn't support classList
     m.style.left = "#{x}px"
     m.style.top = "#{y}px"
     m
