@@ -62,8 +62,8 @@ Map = {
       return swap_floor(1, x);
     });
   },
-  touched: function(e) {
-    var id, t, _ref, _ref1;
+  get_gallery_id_from_event: function(e) {
+    var t, _ref, _ref1;
     t = e.target;
     if (((_ref = t.parentElement) != null ? _ref.nodeName : void 0) === 'g') {
       while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
@@ -72,26 +72,22 @@ Map = {
     } else {
       t = null;
     }
-    if (id = t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0) {
+    return t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0;
+  },
+  touched: function(e) {
+    var id;
+    if (id = Map.get_gallery_id_from_event(e)) {
       return Map.clickCallback(id);
     }
   },
   hover: function(e) {
-    var id, t, _ref, _ref1;
-    t = e.target;
-    if (((_ref = t.parentElement) != null ? _ref.nodeName : void 0) === 'g') {
-      while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
-        t = t.parentElement.querySelector('text') || t.parentElement;
-      }
-    } else {
-      t = null;
-    }
-    if (id = t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0) {
+    var id;
+    if (id = Map.get_gallery_id_from_event(e)) {
       return Map.hoverCallback(id);
     }
   },
-  unhover: function() {
-	  return Map.unhoverCallback();
+  unhover: function(e) {
+    return Map.unhoverCallback();
   }
 };
 
@@ -142,4 +138,5 @@ $map.addEventListener('click', Map.touched);
 $map.addEventListener('touchend', Map.touched);
 
 $map.addEventListener('mouseover', Map.hover);
+
 $map.addEventListener('mouseout', Map.unhover);

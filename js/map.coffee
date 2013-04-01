@@ -23,7 +23,7 @@ Map =
     xhr "#{url_prefix}1.svg", (x) -> swap_floor(1, x)
 
   # Climb the dom until we find a `g > text`, that's probably the gallery id
-  touched: (e) ->
+  get_gallery_id_from_event: (e) ->
     t = e.target
     if t.parentElement?.nodeName == 'g'
       until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
@@ -31,8 +31,11 @@ Map =
     else
       t = null
 
-    if id = t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
-      Map.clickCallback(id)
+    t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
+
+  touched: (e) -> Map.clickCallback(id) if id = Map.get_gallery_id_from_event(e)
+  hover: (e) -> Map.hoverCallback(id) if id = Map.get_gallery_id_from_event(e)
+  unhover: (e) -> Map.unhoverCallback()
 
 Markers =
   build: (x, y, stroked=false) ->
@@ -63,3 +66,5 @@ Markers =
 $map = document.querySelector('#map') || document
 $map.addEventListener 'click', Map.touched
 $map.addEventListener 'touchend', Map.touched
+$map.addEventListener('mouseover', Map.hover)
+$map.addEventListener('mouseout', Map.unhover)
