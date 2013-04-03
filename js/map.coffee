@@ -15,12 +15,12 @@ Map =
     else
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
-  svgify: (url_prefix="") ->
+  svgify: (floors=[1,2,3], url_prefix="", f) ->
     swap_floor = (floor, x) -> document.getElementById(floor)?.innerHTML = x.responseText; Map.init()
     url_prefix = url_prefix + "svgs/"
-    xhr "#{url_prefix}3.svg", (x) -> swap_floor(3, x)
-    xhr "#{url_prefix}2.svg", (x) -> swap_floor(2, x)
-    xhr "#{url_prefix}1.svg", (x) -> swap_floor(1, x)
+    for i in floors
+      xhr "#{url_prefix}#{i}.svg", (x) =>
+        swap_floor(i, x); f?()
 
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   get_gallery_id_from_event: (e) ->
