@@ -16,11 +16,16 @@ Map =
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
   svgify: (floors=[1,2,3], url_prefix="", f) ->
-    swap_floor = (floor, x) -> document.getElementById(floor)?.innerHTML = x.responseText; Map.init()
+    swap_floor = (floor, x) -> document.getElementById(floor)?.innerHTML = x.responseText
     url_prefix = url_prefix + "svgs/"
     for i in floors
-      xhr "#{url_prefix}#{i}.svg", (x) =>
-        swap_floor(i, x); f?()
+      if !Map.svg_enabled
+        document.querySelector("#map img").setAttribute('src',  "#{url_prefix}#{i}.svg")
+        setTimeout(f, 200) if f?
+      else
+        xhr "#{url_prefix}#{i}.svg", (x) => swap_floor(i, x); f?()
+
+  svg_enabled: -> Modernizr && Modernizr.svg
 
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   get_gallery_id_from_event: (e) ->

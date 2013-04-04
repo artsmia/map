@@ -11,6 +11,9 @@ body { margin: 0; }
 #marker.stroked, .marker.stroked {
   background: url(../svgs/marker-stroked-24.svg);
 }
+img ~ .marker {
+  margin: 6px 0 0 21px;
+}
 
 #floorplan div { position: relative; }
 
