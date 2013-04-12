@@ -29,7 +29,7 @@ Map = {
     if (gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)) {
       Markers.clear();
       return (_ref = Markers.add(gallery[1])) != null ? typeof _ref.scrollIntoViewIfNeeded === "function" ? _ref.scrollIntoViewIfNeeded() : void 0 : void 0;
-    } else {
+    } else if (false) {
       _ref1 = Object.keys(Markers.all);
       _results = [];
       for (_i = 0, _len = _ref1.length; _i < _len; _i++) {

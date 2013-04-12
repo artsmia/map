@@ -12,7 +12,7 @@ Map =
     if gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)
       Markers.clear()
       Markers.add(gallery[1])?.scrollIntoViewIfNeeded?()
-    else
+    else if false
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
   svgify: (floors=[1,2,3], url_prefix="", f) ->
