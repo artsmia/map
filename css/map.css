@@ -11,6 +11,9 @@ body { margin: 0; }
 #marker.stroked, .marker.stroked {
   background: url(../svgs/marker-stroked-24.svg);
 }
+img ~ .marker {
+  margin: 6px 0 0 21px;
+}
 
 #floorplan div { position: relative; }
 
@@ -22,5 +25,5 @@ body { margin: 0; }
   margin: -20px;
   padding: 1.2em;
   border-radius: 55px;
-  box-shadow: 0 0 0 1000em rgba(15, 15, 15, 0.3);
+  box-shadow: 0 0 0 1em rgba(15, 15, 15, 0.3);
 }

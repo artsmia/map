@@ -9,46 +9,67 @@ Map =
       Map.mark()
 
   mark: ->
-    if gallery = window.location.hash.match(/(\d+)/)
+    if gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)
       Markers.clear()
-      Markers.add(gallery[1]).scrollIntoViewIfNeeded()
-    else
+      Markers.add(gallery[1])?.scrollIntoViewIfNeeded?()
+    else if false
       Markers.add(mark, true) for mark in Object.keys(Markers.all)
 
-  svgify: ->
-    swap_floor = (floor, x) -> document.getElementById(floor).innerHTML = x.responseText; Map.init()
-    xhr "svgs/3.svg", (x) -> swap_floor(3, x)
-    xhr "svgs/2.svg", (x) -> swap_floor(2, x)
-    xhr "svgs/1.svg", (x) -> swap_floor(1, x)
+  svgify: (floors=[1,2,3], url_prefix="", f) ->
+    swap_floor = (floor, x) -> document.getElementById(floor)?.innerHTML = x.responseText
+    url_prefix = url_prefix + "svgs/"
+    for i in floors
+      if !Map.svg_enabled
+        document.querySelector("#map img").setAttribute('src',  "#{url_prefix}#{i}.svg")
+        setTimeout(f, 200) if f?
+      else
+        xhr "#{url_prefix}#{i}.svg", (x) => swap_floor(i, x); f?()
+
+  svg_enabled: -> Modernizr && Modernizr.svg
+
+  # Climb the dom until we find a `g > text`, that's probably the gallery id
+  get_gallery_id_from_event: (e) ->
+    t = e.target
+    if t.parentElement?.nodeName == 'g'
+      until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
+        t = t.parentElement.querySelector('text') || t.parentElement
+    else
+      t = null
+
+    t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
+
+  touched: (e) -> Map.clickCallback(id) if id = Map.get_gallery_id_from_event(e)
+  hover: (e) -> Map.hoverCallback(id) if id = Map.get_gallery_id_from_event(e)
+  unhover: (e) -> Map.unhoverCallback()
 
 Markers =
   build: (x, y, stroked=false) ->
     m = document.createElement('span')
-    m.classList.add('marker')
-    m.classList.add('stroked') if stroked
-    m.style.left = x
-    m.style.top = y
+    if m.classList?
+      m.classList.add('marker')
+      m.classList.add('stroked') if stroked
+    else
+      m.setAttribute('class', 'marker') # IE<9 doesn't support classList
+    m.style.left = "#{x}px"
+    m.style.top = "#{y}px"
     m
 
   add: (id, stroked=false) ->
-    [x, y] = Markers.all[id]
-    document.getElementById(id[0])?.appendChild @build(x, y, stroked)
+    id = "#{id}"
+    if id && Markers.all[id]?
+      [x, y] = Markers.all[id]
+      document.getElementById(id[0])?.appendChild @build(x, y, stroked)
 
   clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
 
-Map.init()
-Map.svgify()
-window.addEventListener "hashchange", Map.mark, false
+# Map.init()
+# Map.svgify()
+# window.addEventListener "hashchange", Map.mark, false
 
-document.addEventListener 'click', (e) ->
-  # Climb the dom until we find a `g > text`, that's probably the gallery id
-  t = e.target
-  if t.parentElement.nodeName == 'g'
-    until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
-      t = t.parentElement.querySelector('text') || t.parentElement
-  else
-    t = null
+# Map.clickCallback = -> window.location.hash = "#{id}"
 
-  if id = t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
-    console.log t, t.textContent, id
-    window.location.hash = "#{id}"
+$map = document.querySelector('#map') || document
+$map.addEventListener 'click', Map.touched
+$map.addEventListener 'touchend', Map.touched
+$map.addEventListener('mouseover', Map.hover)
+$map.addEventListener('mouseout', Map.unhover)
