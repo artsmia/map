@@ -5,7 +5,7 @@
 <script src="js/map.js"></script>
 <script>
   Map.init()
-  Map.svgify()
+  Map.svgify([1,2,3], "", function() { Map.mark() })
   window.addEventListener("hashchange", Map.mark, false)
   Map.clickCallback = function(id) { window.location.hash = "" + id; }
   hoverColor = '#fff'
