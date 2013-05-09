@@ -25,7 +25,7 @@ Map =
       else
         xhr "#{url_prefix}#{i}.svg", (x) => swap_floor(i, x); f?()
 
-  svg_enabled: -> Modernizr && Modernizr.svg
+  svg_enabled: -> true
 
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   get_gallery_id_from_event: (e) ->
@@ -38,9 +38,9 @@ Map =
 
     t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
 
-  touched: (e) -> Map.clickCallback(id) if id = Map.get_gallery_id_from_event(e)
-  hover: (e) -> Map.hoverCallback(id) if id = Map.get_gallery_id_from_event(e)
-  unhover: (e) -> Map.unhoverCallback()
+  touched: (e) -> Map.clickCallback?(id) if id = Map.get_gallery_id_from_event(e)
+  hover: (e) -> Map.hoverCallback?(id) if id = Map.get_gallery_id_from_event(e)
+  unhover: (e) -> Map.unhoverCallback?()
 
 Markers =
   build: (x, y, stroked=false) ->
@@ -62,13 +62,7 @@ Markers =
 
   clear: -> d.parentNode.removeChild(d) while d = document.querySelector('.marker')
 
-# Map.init()
-# Map.svgify()
-# window.addEventListener "hashchange", Map.mark, false
-
-# Map.clickCallback = -> window.location.hash = "#{id}"
-
-$map = document.querySelector('#map') || document
+$map = document.querySelector('#map') || window
 $map.addEventListener 'click', Map.touched
 $map.addEventListener 'touchend', Map.touched
 $map.addEventListener('mouseover', Map.hover)

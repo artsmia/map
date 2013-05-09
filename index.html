@@ -3,6 +3,12 @@
 <title>MIA floorplan</title>
 <link rel="stylesheet" href="css/map.css">
 <script src="js/map.js"></script>
+<script>
+  Map.init()
+  Map.svgify()
+  window.addEventListener("hashchange", Map.mark, false)
+  Map.clickCallback = function(id) { window.location.hash = "" + id; }
+</script>
 </head>
 <body>
 <div id="floorplan">
@@ -10,6 +16,6 @@
   <div id="2"><img src="svgs/2.svg"></div>
   <div id="1"><img src="svgs/1.svg"></div>
 </div>
-<div id="lines">
+<div id="lines"></div>
 </body>
 </html>

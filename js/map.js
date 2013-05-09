@@ -73,7 +73,7 @@ Map = {
     return _results;
   },
   svg_enabled: function() {
-    return Modernizr && Modernizr.svg;
+    return true;
   },
   get_gallery_id_from_event: function(e) {
     var t, _ref, _ref1;
@@ -90,17 +90,17 @@ Map = {
   touched: function(e) {
     var id;
     if (id = Map.get_gallery_id_from_event(e)) {
-      return Map.clickCallback(id);
+      return typeof Map.clickCallback === "function" ? Map.clickCallback(id) : void 0;
     }
   },
   hover: function(e) {
     var id;
     if (id = Map.get_gallery_id_from_event(e)) {
-      return Map.hoverCallback(id);
+      return typeof Map.hoverCallback === "function" ? Map.hoverCallback(id) : void 0;
     }
   },
   unhover: function(e) {
-    return Map.unhoverCallback();
+    return typeof Map.unhoverCallback === "function" ? Map.unhoverCallback() : void 0;
   }
 };
 
@@ -144,7 +144,7 @@ Markers = {
   }
 };
 
-$map = document.querySelector('#map') || document;
+$map = document.querySelector('#map') || window;
 
 $map.addEventListener('click', Map.touched);
 
