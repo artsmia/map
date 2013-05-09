@@ -27,20 +27,27 @@ Map =
 
   svg_enabled: -> true
 
-  # Climb the dom until we find a `g > text`, that's probably the gallery id
-  get_gallery_id_from_event: (e) ->
-    t = e.target
+  climb_svg_tree_until: (nodeType, start) ->
+    t = start
     if t.parentElement?.nodeName == 'g'
-      until t.nodeName == 'text' || t.parentElement.nodeName != 'g'
-        t = t.parentElement.querySelector('text') || t.parentElement
+      until t.nodeName == nodeType || t.parentElement.nodeName != 'g'
+        t = t.parentElement.querySelector(nodeType) || t.parentElement
     else
       t = null
 
+    t
+
+  # Climb the dom until we find a `g > text`, that's probably the gallery id
+  get_gallery_id_from_event: (e) ->
+    t = @climb_svg_tree_until('text', e.target)
     t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
 
+  get_svg_bounds_from_event: (e) ->
+    @climb_svg_tree_until('polygon', e.target)
+
   touched: (e) -> Map.clickCallback?(id) if id = Map.get_gallery_id_from_event(e)
-  hover: (e) -> Map.hoverCallback?(id) if id = Map.get_gallery_id_from_event(e)
-  unhover: (e) -> Map.unhoverCallback?()
+  hover: (e) -> Map.hoverCallback?(id, e) if id = Map.get_gallery_id_from_event(e)
+  unhover: (e) -> Map.unhoverCallback?(e)
 
 Markers =
   build: (x, y, stroked=false) ->

@@ -8,6 +8,15 @@
   Map.svgify()
   window.addEventListener("hashchange", Map.mark, false)
   Map.clickCallback = function(id) { window.location.hash = "" + id; }
+  hoverColor = '#fff'
+  Map.hoverCallback = function(id, e) {
+    polygon = Map.get_svg_bounds_from_event(e)
+    if(polygon == undefined) return
+    polygon.setAttribute('originalFill', polygon.getAttribute('fill'))
+    Map.lastHoveredGallery = polygon
+    polygon.setAttribute('fill', hoverColor)
+  }
+  Map.unhoverCallback = function() { Map.lastHoveredGallery.setAttribute('fill', Map.lastHoveredGallery.getAttribute('originalFill')) }
 </script>
 </head>
 <body>

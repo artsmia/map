@@ -75,17 +75,25 @@ Map = {
   svg_enabled: function() {
     return true;
   },
-  get_gallery_id_from_event: function(e) {
-    var t, _ref, _ref1;
-    t = e.target;
+  climb_svg_tree_until: function(nodeType, start) {
+    var t, _ref;
+    t = start;
     if (((_ref = t.parentElement) != null ? _ref.nodeName : void 0) === 'g') {
-      while (!(t.nodeName === 'text' || t.parentElement.nodeName !== 'g')) {
-        t = t.parentElement.querySelector('text') || t.parentElement;
+      while (!(t.nodeName === nodeType || t.parentElement.nodeName !== 'g')) {
+        t = t.parentElement.querySelector(nodeType) || t.parentElement;
       }
     } else {
       t = null;
     }
-    return t != null ? (_ref1 = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref1[1] : void 0 : void 0;
+    return t;
+  },
+  get_gallery_id_from_event: function(e) {
+    var t, _ref;
+    t = this.climb_svg_tree_until('text', e.target);
+    return t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0 : void 0;
+  },
+  get_svg_bounds_from_event: function(e) {
+    return this.climb_svg_tree_until('polygon', e.target);
   },
   touched: function(e) {
     var id;
@@ -96,11 +104,11 @@ Map = {
   hover: function(e) {
     var id;
     if (id = Map.get_gallery_id_from_event(e)) {
-      return typeof Map.hoverCallback === "function" ? Map.hoverCallback(id) : void 0;
+      return typeof Map.hoverCallback === "function" ? Map.hoverCallback(id, e) : void 0;
     }
   },
   unhover: function(e) {
-    return typeof Map.unhoverCallback === "function" ? Map.unhoverCallback() : void 0;
+    return typeof Map.unhoverCallback === "function" ? Map.unhoverCallback(e) : void 0;
   }
 };
 
