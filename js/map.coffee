@@ -23,7 +23,7 @@ Map =
         document.querySelector("#map img").setAttribute('src',  "#{url_prefix}#{i}.svg")
         setTimeout(f, 200) if f?
       else
-        xhr "#{url_prefix}#{i}.svg", (x) => swap_floor(i, x); f?()
+        xhr "#{url_prefix}#{i}.svg", (x) => swap_floor(x.responseXML.URL.match(/(\d).svg/)[1], x); f?()
 
   svg_enabled: -> true
 

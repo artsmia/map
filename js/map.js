@@ -65,7 +65,7 @@ Map = {
         }
       } else {
         _results.push(xhr("" + url_prefix + i + ".svg", function(x) {
-          swap_floor(i, x);
+          swap_floor(x.responseXML.URL.match(/(\d).svg/)[1], x);
           return typeof f === "function" ? f() : void 0;
         }));
       }
