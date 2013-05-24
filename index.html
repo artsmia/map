@@ -7,16 +7,34 @@
   Map.init()
   Map.svgify([1,2,3], "", function() { Map.mark() })
   window.addEventListener("hashchange", Map.mark, false)
-  Map.clickCallback = function(id) { window.location.hash = "" + id; }
+  Map.clickCallback = function(id) {
+    Map.activeGallery = id
+    Map.unhoverCallback()
+    window.location.hash = "" + id;
+  }
   hoverColor = '#fff'
+  Map.hoveredGalleries = []
   Map.hoverCallback = function(id, e) {
     polygon = Map.get_svg_bounds_from_event(e)
     if(polygon == undefined) return
-    polygon.setAttribute('originalFill', polygon.getAttribute('fill'))
-    Map.lastHoveredGallery = polygon
+    fill = polygon.getAttribute('fill')
+    if(fill != hoverColor) polygon.setAttribute('originalFill', fill)
     polygon.setAttribute('fill', hoverColor)
+    Map.hoveredGalleries.push(polygon)
   }
-  Map.unhoverCallback = function() { if(Map.lastHoveredGallery) Map.lastHoveredGallery.setAttribute('fill', Map.lastHoveredGallery.getAttribute('originalFill')) }
+  Map.unhoverCallback = function() {
+    newHoveredGalleries = []
+    for(var i = 0; i < Map.hoveredGalleries.length; i++) {
+      g = Map.hoveredGalleries[i]
+      if(text = Map.climb_svg_tree_until('text', g)) id = text.textContent.replace(/\s*/g, '').match(/(\d+)/)[1]
+      if(id != Map.activeGallery) {
+        g.setAttribute('fill', g.getAttribute('originalFill'))
+      } else {
+        newHoveredGalleries.push(g)
+      }
+    }
+    Map.hoveredGalleries = newHoveredGalleries
+  }
 </script>
 </head>
 <body>
