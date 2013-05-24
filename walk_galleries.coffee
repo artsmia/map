@@ -12,7 +12,7 @@ walk_floor = (floor, memo) ->
       tspans = document.querySelectorAll('text')
       for t in tspans
         text = t.textContent.replace(/\s*/g, '')
-        if text.match(/^\d{3}$/)
+        if text.match(/^\d{3}a?$/)
           rect = t.getClientRects()[0]
           [x, y] = [rect.left+rect.width/2-3, rect.top+rect.height/2-2]
           marker = [x, y]

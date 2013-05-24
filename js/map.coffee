@@ -8,8 +8,9 @@ Map =
       Markers.all = JSON.parse(x.responseText)
       Map.mark()
 
+  galleryRegex: /(\d+a?)/
   mark: ->
-    if gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)
+    if gallery = window.location.hash.match(Map.galleryRegex) || window.location.search.match(Map.galleryRegex)
       Markers.clear()
       Markers.add(gallery[1])?.scrollIntoViewIfNeeded?()
     else if false
@@ -40,7 +41,8 @@ Map =
   # Climb the dom until we find a `g > text`, that's probably the gallery id
   get_gallery_id_from_event: (e) ->
     t = @climb_svg_tree_until('text', e.target)
-    t?.textContent.replace(/\s*/g, '').match(/(\d+)/)?[1]
+    t?.textContent.replace(/\s*/g, '')
+    t?.textContent.replace(/\s*/g, '').match(@galleryRegex)?[1]
 
   get_svg_bounds_from_event: (e) ->
     @climb_svg_tree_until('polygon', e.target)

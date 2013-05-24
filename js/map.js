@@ -24,9 +24,10 @@ Map = {
       return Map.mark();
     });
   },
+  galleryRegex: /(\d+a?)/,
   mark: function() {
     var gallery, mark, _i, _len, _ref, _ref1, _results;
-    if (gallery = window.location.hash.match(/(\d+)/) || window.location.search.match(/G(\d+)/)) {
+    if (gallery = window.location.hash.match(Map.galleryRegex) || window.location.search.match(Map.galleryRegex)) {
       Markers.clear();
       return (_ref = Markers.add(gallery[1])) != null ? typeof _ref.scrollIntoViewIfNeeded === "function" ? _ref.scrollIntoViewIfNeeded() : void 0 : void 0;
     } else if (false) {
@@ -90,7 +91,10 @@ Map = {
   get_gallery_id_from_event: function(e) {
     var t, _ref;
     t = this.climb_svg_tree_until('text', e.target);
-    return t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(/(\d+)/)) != null ? _ref[1] : void 0 : void 0;
+    if (t != null) {
+      t.textContent.replace(/\s*/g, '');
+    }
+    return t != null ? (_ref = t.textContent.replace(/\s*/g, '').match(this.galleryRegex)) != null ? _ref[1] : void 0 : void 0;
   },
   get_svg_bounds_from_event: function(e) {
     return this.climb_svg_tree_until('polygon', e.target);
