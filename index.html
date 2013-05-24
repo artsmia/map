@@ -16,7 +16,7 @@
     Map.lastHoveredGallery = polygon
     polygon.setAttribute('fill', hoverColor)
   }
-  Map.unhoverCallback = function() { Map.lastHoveredGallery.setAttribute('fill', Map.lastHoveredGallery.getAttribute('originalFill')) }
+  Map.unhoverCallback = function() { if(Map.lastHoveredGallery) Map.lastHoveredGallery.setAttribute('fill', Map.lastHoveredGallery.getAttribute('originalFill')) }
 </script>
 </head>
 <body>
