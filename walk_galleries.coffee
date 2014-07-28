@@ -4,7 +4,7 @@
 walk_floor = (floor, memo) ->
   page = require('webpage').create()
 
-  page.open "http://mia-map/svgs/#{floor}.svg", (status) ->
+  page.open "http://artsmia.github.io/map/svgs/#{floor}.svg", (status) ->
     page.onConsoleMessage = (m) -> console.log m
 
     g = page.evaluate ->
@@ -24,9 +24,45 @@ walk_floor = (floor, memo) ->
 
     page.close()
     if floor > 2
-      console.log JSON.stringify(memo)
+      if cb then cb(memo) else console.log JSON.stringify(memo)
       phantom.exit()
     else
-      walk_floor(floor+1, memo)
+      walk_floor(floor+1, memo, cb)
 
-walk_floor(1, {})
+# walk_floor(1, {})
+
+snapshots = (floor, memo) ->
+  page = require('webpage').create()
+  page.open "http://artsmia.github.io/map/svgs/#{floor}.svg", (status) ->
+    g = page.evaluate ->
+      rects = {}
+      tspans = document.querySelectorAll('text')
+      for t in tspans
+        text = t.textContent.replace(/\s*/g, '')
+        if text.match(/^\d{3}a?$/)
+          rects[text] = t.getBoundingClientRect()
+
+      return rects
+
+    # memo[room] = rect for room,rect of g
+    for room,rect of g
+      pad = 100
+      expandedRect = {
+        left: rect['left']-pad,
+        right: rect['right']+pad,
+        top: rect['top']-pad,
+        bottom: rect['bottom']+pad,
+        height: rect['height']+pad*2,
+        width: rect['width']+pad*2,
+      } 
+      page.clipRect = expandedRect
+      page.render('galleries/'+room+'.png')
+
+    page.close()
+    if floor > 2
+      # console.log(JSON.stringify(memo))
+      phantom.exit()
+    else
+      snapshots(floor+1, memo)
+
+snapshots(1, {})
