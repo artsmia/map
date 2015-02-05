@@ -44,14 +44,15 @@ snapshots = (floor, memo) ->
 
     # memo[room] = rect for room,rect of g
     for room,rect of g
-      pad = 100
+      z = page.zoomFactor = 3
+      pad = 100*z
       expandedRect = {
-        left: rect['left']-pad,
-        right: rect['right']+pad,
-        top: rect['top']-pad,
-        bottom: rect['bottom']+pad,
-        height: rect['height']+pad*2,
-        width: rect['width']+pad*2,
+        left: rect['left']*z-pad,
+        right: rect['right']*z+pad,
+        top: rect['top']*z-pad,
+        bottom: rect['bottom']*z+pad,
+        height: rect['height']*z+pad*2,
+        width: rect['width']*z+pad*2,
       } 
       page.clipRect = expandedRect
       page.render('galleries/'+room+'.png')
