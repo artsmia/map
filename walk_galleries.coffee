@@ -24,12 +24,10 @@ walk_floor = (floor, memo) ->
 
     page.close()
     if floor > 2
-      if cb then cb(memo) else console.log JSON.stringify(memo)
+      console.log JSON.stringify(memo)
       phantom.exit()
     else
-      walk_floor(floor+1, memo, cb)
-
-# walk_floor(1, {})
+      walk_floor(floor+1, memo)
 
 snapshots = (floor, memo) ->
   page = require('webpage').create()
@@ -65,4 +63,17 @@ snapshots = (floor, memo) ->
     else
       snapshots(floor+1, memo)
 
-snapshots(1, {})
+system = require('system')
+args = system.args
+
+if args.length == 1
+  console.log('snap: snap png thumbnails of all the galleries')
+  console.log('walk: find all the galleries coordinates and log them')
+  console.log('you need to choose one!')
+  phantom.exit()
+else if args[0] == 'snap'
+  snapshots(1, {})
+else
+  walk_floor(1, {})
+
+
