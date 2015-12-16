@@ -473,16 +473,8 @@
 	<text transform="matrix(1 0 0 1 829.8594 230.0327)" fill="none" font-family="'Interstate-BoldCondensed'" font-size="7.9289">373</text>
 </g>
 <g>
-	<g>
-		<defs>
-			<polygon id="SVGID_4_" points="807.708,267.234 757.062,242.38 723.944,258.634 759.339,276.004 775.674,267.986 
-				790.921,275.471 			"/>
-		</defs>
-		<use xlink:href="#SVGID_4_"  overflow="visible" fill="#F8ABAD"/>
-		<clipPath id="SVGID_5_">
-			<use xlink:href="#SVGID_4_"  overflow="visible"/>
-		</clipPath>
-	</g>
+  <polygon id="SVGID_4_" fill="#F8ABAD" points="807.708,267.234 757.062,242.38 723.944,258.634 759.339,276.004 775.674,267.986 
+    790.921,275.471 			"/>
 	<g>
 		<g>
 			<path d="M761.269,263.507c-0.826,0.408-1.883,0.422-3.146,0.131l0.287-0.475c1.004,0.225,1.697,0.215,2.189-0.023
@@ -662,16 +654,8 @@
 	<text transform="matrix(1 0 0 1 595 341.1084)" fill="none" font-family="'Interstate-BoldCondensed'" font-size="7.9289">340</text>
 </g>
 <g>
-	<g>
-		<defs>
-			<polygon id="SVGID_6_" points="631.719,294.363 616.342,286.812 584.52,302.432 553.96,287.434 503.103,312.391 518.605,319.998 
-				491.085,333.502 521.524,348.439 			"/>
-		</defs>
-		<use xlink:href="#SVGID_6_"  overflow="visible" fill="#DDE093"/>
-		<clipPath id="SVGID_7_">
-			<use xlink:href="#SVGID_6_"  overflow="visible"/>
-		</clipPath>
-	</g>
+  <polygon id="SVGID_6_" fill="#DDE093" points="631.719,294.363 616.342,286.812 584.52,302.432 553.96,287.434 503.103,312.391 518.605,319.998 
+    491.085,333.502 521.524,348.439 			"/>
 	<g>
 		<path d="M538.441,314.414c-0.777,0.383-1.73,0.383-2.8,0.115l0.298-0.406c0.866,0.189,1.472,0.211,1.922-0.01
 			c0.531-0.264,0.498-0.6-0.037-0.859c-0.625-0.309-1.39-0.432-2.802-0.326c-1.52,0.113-2.308,0.039-3.153-0.377
