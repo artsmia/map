@@ -2023,7 +2023,7 @@
 	534.833,165.498 "/>
 <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#A7A9AC" points="137.644,401.977 159.415,391.75 140.309,382.533 
 	118.536,392.76 "/>
-<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="167.634,478.939 212.961,456.91 122.117,416.057 
+<polygon fill-rule="evenodd" clip-rule="evenodd" fill="rgba(0, 0, 0, 0)" points="167.634,478.939 212.961,456.91 122.117,416.057 
 	94.893,429.645 101.702,432.59 87.443,439.584 "/>
 <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#A7A9AC" points="39.005,448.156 73.008,432.504 35.799,414.73 
 	1.793,430.383 "/>
@@ -2031,7 +2031,7 @@
 	455.049,64.676 "/>
 <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#6D6E71" points="534.536,103.482 577.76,82.254 534.488,60.125 
 	491.261,81.354 "/>
-<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="551.544,90.106 531.479,80.131 511.835,90.422 
+<polygon fill-rule="evenodd" clip-rule="evenodd" fill="rgba(0, 0, 0, 0)" points="551.544,90.106 531.479,80.131 511.835,90.422 
 	531.931,100.413 "/>
 <polygon fill-rule="evenodd" clip-rule="evenodd" fill="#A7A9AC" points="403.915,70.2 418.293,63.139 388.348,48.444 
 	373.971,55.504 "/>
@@ -2105,7 +2105,7 @@
 <line fill="none" stroke="#94948B" stroke-width="1.3528" stroke-miterlimit="10" x1="366.214" y1="496.176" x2="373.841" y2="499.918"/>
 <polyline fill="none" stroke="#94948B" stroke-width="1.3528" stroke-miterlimit="10" points="399.508,80.783 427.844,94.69 
 	397.223,109.691 "/>
-<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF" points="494.906,369.082 446.516,392.826 392.855,366.494 
+<polygon fill-rule="evenodd" clip-rule="evenodd" fill="rgba(0, 0, 0, 0)" points="494.906,369.082 446.516,392.826 392.855,366.494 
 	441.243,342.748 "/>
 <line fill="none" stroke="#94948B" stroke-width="0.1461" stroke-miterlimit="10" x1="567.17" y1="77.282" x2="539.988" y2="63.943"/>
 <line fill="none" stroke="#94948B" stroke-width="0.1461" stroke-miterlimit="10" x1="320.475" y1="506.592" x2="273.685" y2="529.547"/>
@@ -2381,7 +2381,7 @@
 		M489.185,111.832c-7.162,3.544-19.034,3.421-26.505-0.274c-7.472-3.694-7.717-9.564-0.555-13.105
 		c7.165-3.548,19.036-3.421,26.508,0.271C496.102,102.419,496.352,108.29,489.185,111.832z"/>
 	
-		<path clip-path="url(#SVGID_9_)" fill="#FFFFFF" stroke="#58595B" stroke-width="0.805" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+		<path clip-path="url(#SVGID_9_)" fill="rgba(0, 0, 0, 0)" stroke="#58595B" stroke-width="0.805" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
 		M489.185,115.945c-7.162,3.541-19.034,3.418-26.505-0.276c-7.472-3.694-7.717-9.562-0.555-13.106
 		c7.165-3.542,19.036-3.422,26.508,0.273C496.102,106.53,496.352,112.4,489.185,115.945z"/>
 </g>
@@ -2423,7 +2423,7 @@
 		M505.343,401.639c-4.01,1.98-10.653,1.916-14.835-0.156c-4.181-2.066-4.318-5.354-0.311-7.332
 		c4.012-1.988,10.654-1.918,14.837,0.148C509.215,396.371,509.354,399.654,505.343,401.639z"/>
 	
-		<path clip-path="url(#SVGID_11_)" fill="#FFFFFF" stroke="#58595B" stroke-width="0.575" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+		<path clip-path="url(#SVGID_11_)" fill="rgba(0, 0, 0, 0)" stroke="#58595B" stroke-width="0.575" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
 		M505.343,403.936c-4.01,1.986-10.653,1.916-14.835-0.15c-4.181-2.066-4.318-5.352-0.311-7.338
 		c4.012-1.979,10.654-1.91,14.837,0.154C509.215,398.67,509.354,401.955,505.343,403.936z"/>
 </g>
@@ -3268,7 +3268,7 @@
 		<clipPath id="SVGID_27_">
 			<use xlink:href="#SVGID_26_"  overflow="visible"/>
 		</clipPath>
-		<polygon clip-path="url(#SVGID_27_)" fill="#FFFFFF" points="526.251,352.777 544.603,363.994 636.259,317.457 616.342,310.262 		
+		<polygon clip-path="url(#SVGID_27_)" fill="rgba(0, 0, 0, 0)" points="526.251,352.777 544.603,363.994 636.259,317.457 616.342,310.262 		
 			"/>
 		
 			<line clip-path="url(#SVGID_27_)" fill="none" stroke="#58595B" stroke-width="2.0292" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="525.258" y1="354.016" x2="625.297" y2="305.502"/>
