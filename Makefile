@@ -1,5 +1,5 @@
 galleries.json:
-	phantomjs walk_galleries.coffee walk > galleries.json
+	phantomjs walk_galleries.coffee walk | jq '.' > galleries.json
 
 gallery-thumbs:
 	phantomjs walk_galleries.coffee snap
